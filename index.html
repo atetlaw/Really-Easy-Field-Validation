@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<!--
+/*
+* Really easy field validation with Prototype
+* http://tetlaw.id.au/view/javascript/really-easy-field-validation
+* Andrew Tetlaw
+* Version 1.5.4.1 (2007-01-05)
+* 
+* Copyright (c) 2007 Andrew Tetlaw
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the "Software"), to deal in the Software without
+* restriction, including without limitation the rights to use, copy,
+* modify, merge, publish, distribute, sublicense, and/or sell copies
+* of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+* 
+* The above copyright notice and this permission notice shall be
+* included in all copies or substantial portions of the Software.
+* 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+* BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+* ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+* CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+*/
+ -->
+	<head>
+	  <!-- <script src="scriptaculous/lib/prototype.js" type="text/javascript"></script>
+		<script src="scriptaculous/src/effects.js" type="text/javascript"></script> -->
+		<script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3/prototype.js" type="text/javascript"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.2/effects.js" type="text/javascript"></script>
+		<script type="text/javascript" src="fabtabulous.js"></script>
+		<script type="text/javascript" src="validation.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+		<div id="container">
+			<p><a href="http://tetlaw.id.au/view/javascript/really-easy-field-validation">Return to the article</a></p>
+			<h1>Really Easy Field validation with Prototype</h1>
+			<div id="mainmenu">
+					<ul id="tabs">
+						<li>
+							<a href="#standard">Standard</a>
+						</li>
+						<li>
+							<a href="#using-titles">Using Titles</a>
+						</li>
+						<li>
+							<a href="#no-element-ids">No element IDs</a>
+						</li>
+					</ul>
+				<div>
+				<div class="bar">&nbsp;</div>
+				<div class="panel" id="standard">
+					<form id="test" action="#" method="get">
+					<fieldset>
+						<legend>Form</legend>
+						<div class="form-row">
+							<div class="field-label"><label for="field1">Name</label>:</div>
+							<div class="field-widget"><input name="field1" id="field1" class="required" title="Enter your name" /></div>
+						</div>
+            <div class="form-row">
+							<div class="field-label"><label for="field111">Date</label>:</div>
+							<div class="field-widget"><input name="field111" id="field111" class="required validate-date" title="Enter your DOB" /></div>
+						</div>
+						<div class="form-row">
+							<div class="field-label"><label for="field8">Password</label>:</div>
+							<div class="field-widget"><input type="password" name="field8" id="field8" class="required validate-password" title="Enter a password greater than 6 characters" /></div>
+						</div>
+						<div class="form-row">
+							<div class="field-label"><label for="field9">Confirm Password</label>:</div>
+							<div class="field-widget"><input type="password" name="field9" id="field9" class="required validate-password-confirm" title="Enter the same password for confirmation" /></div>
+						</div>
+						<div class="form-row">
+							<div class="field-label"><label for="field3">Employee Number</label>:</div>
+							<div class="field-label">
+								<input name="field3" id="field3" class="required validate-alphanum" title="Enter your employee number, please use only alphanumeric characters" />		
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="field-label"><label for="field7">Department</label>:</div>
+							<div class="field-widget">
+								<select id="field7" name="field7" class="validate-selection" title="Choose your department">
+									<option>Select one...</option>
+									<option>Accounts</option>
+									<option>Human Resources</option>
+									<option>Information Technology</option>
+									<option>Animal Management</option>
+									<option>Ultimate Frisby</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="field-label"><label for="field4">Age</label>:</div>
+							<div class="field-label"><input name="field4" id="field4" class="validate-number" title="Optional: Enter your age" /> (optional)</div>
+						</div>
+						<div class="form-row">
+							<div class="field-label"><label for="field6">Sex</label>:</div>
+							<div class="field-label">
+								<input type="radio" name="field6" id="field6-male" value="Male" />Male<br />
+								<input type="radio" name="field6" id="field6-female" value="Female" class="validate-one-required" />Female
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="field-label"><label for="field5">Donation</label>:</div>
+							<div class="field-label">
+									<div id="advice-validate-currency-dollar-field5" class="custom-advice" style="display:none">That $ amount does not compute!</div>
+									<input name="field5" id="field5" class="validate-currency-dollar" title="Enter a dollar amount for donation" /> (optional)
+							</div>
+						</div>
+						<p><a href="#" onclick="$('email-signup').toggle(); return false">Sign me up for the email newletter!</a></p>
+						<div id="email-signup" class="form-row" style="display:none;">
+							<div class="field-label"><label for="field22">Email</label>:</div>
+							<div class="field-widget"><input name="field22" id="field22" class="required validate-email" title="Optional: Enter your email address" /></div>
+						</div>
+					</fieldset>
+					<input type="submit" value="Submit" /> <input type="button" value="Reset" onclick="valid.reset(); return false" />
+					</form>
+					<script type="text/javascript">
+						function formCallback(result, form) {
+							window.status = "valiation callback for form '" + form.id + "': result = " + result;
+						}
+						
+						var valid = new Validation('test', {immediate : true, onFormValidate : formCallback});
+						Validation.addAllThese([
+							['validate-password', 'Your password must be more than 6 characters and not be \'password\' or the same as your name', {
+								minLength : 7,
+								notOneOf : ['password','PASSWORD','1234567','0123456'],
+								notEqualToField : 'field1'
+							}],
+							['validate-password-confirm', 'Your confirmation password does not match your first password, please try again.', {
+								equalToField : 'field8'
+							}]
+						]);
+					</script>
+				</div>
+				<div class="panel" id="using-titles">
+					<form id="test2" action="#" method="get">
+						<fieldset>
+							<legend>Form</legend>
+							<div class="form-row">
+								<div class="field-label"><label for="field1-t2">Name</label>:</div>
+								<div class="field-widget"><input name="field1-t2" id="field1-t2" class="required" title="Enter your name. This is a required field" /></div>
+							</div>
+							<div class="form-row">
+								<div class="field-label"><label for="field3-t2">Employee Number</label>:</div>
+								<div class="field-label"><input name="field3-t2" id="field3-t2" class="required validate-alphanum" title="Enter your employee number, please use only alphanumeric characters" /></div>
+							</div>
+							<div class="form-row">
+								<div class="field-label"><label for="field4-t2">Age</label>:</div>
+								<div class="field-label"><input name="field4-t2" id="field4-t2" class="validate-number" title="Optional: Enter your age, please use only numbers" /> (optional)</div>
+							</div>
+							<div class="form-row">
+								<div class="field-label"><label for="field5-t2">Donation</label>:</div>
+								<div class="field-label"><input name="field5-t2" id="field5-t2" class="validate-currency-dollar" title="Optional: Enter a dollar amount for donation" /> (optional)</div>
+							</div>
+						</fieldset>
+						<input type="submit" value="Submit" /> <input type="button" value="Reset" onclick="valid2.reset(); return false" />
+					</form>
+					<script type="text/javascript">
+						var valid2 = new Validation('test2', {useTitles:true});
+					</script>
+				</div>
+				<div class="panel" id="no-element-ids">
+					<form id="test3" action="#" method="get">
+						<fieldset>
+							<legend>Form</legend>
+							<div class="form-row">
+								<div class="field-label"><label for="field1-t3">Name</label>:</div>
+								<div class="field-widget"><input name="field1-t3" class="required" title="Enter your name. This is a required field" /></div>
+							</div>
+							<div class="form-row">
+								<div class="field-label"><label for="field2-t3">Employee Number</label>:</div>
+								<div class="field-label"><input name="field2-t3" class="required validate-alphanum" title="Enter your employee number, please use only alphanumeric characters" /></div>
+							</div>
+							<div class="form-row">
+								<div class="field-label"><label for="field3-t3">Age</label>:</div>
+								<div class="field-label"><input name="field3-t3" class="validate-number" title="Optional: Enter your age, please use only numbers" /> (optional)</div>
+							</div>
+							<div class="form-row">
+								<div class="field-label"><label for="field4-t3">Donation</label>:</div>
+								<div class="field-label"><input name="field4-t3" class="validate-currency-dollar" title="Optional: Enter a dollar amount for donation" /> (optional)</div>
+							</div>
+						</fieldset>
+						<input type="submit" value="Submit" /> <input type="button" value="Reset" onclick="valid3.reset(); return false" />
+					</form>
+					<script type="text/javascript">
+						var valid3 = new Validation('test3');
+					</script>
+				</div>
+		</div>
+		<script type="text/javascript">
+			new Fabtabs('tabs');
+		</script>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<!--
+/*
+ * Really easy field validation with Prototype
+ * http://tetlaw.id.au/view/blog/really-easy-field-validation-with-prototype
+ * Andrew Tetlaw
+ * Version 1.4 (2006-05-18)
+ * Thanks:
+ *  Mike Rumble http://www.mikerumble.co.uk/ for onblur idea
+ *  Analgesia for spotting a typo
+ *  Paul Shannon http://www.paulshannon.com for the reset idea
+ *  Ted Wise for the focus-on-first-error idea
+ *  Sidney http://www.creativelycrazy.de/ for the custom advice idea
+ * 
+ * http://creativecommons.org/licenses/by-sa/2.5/
+ */
+ -->
+	<head>
+		<script src="prototype.js" type="text/javascript"></script>
+		<script src="effects.js" type="text/javascript"></script>
+		<script type="text/javascript" src="validation.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+<div id="container">
+		<form id="test" action="#" method="get">
+		<fieldset>
+			<legend>Form</legend>
+			<div class="form-row">
+				<div class="field-label"><label for="field1">Name</label>:</div>
+				<div class="field-widget"><input name="field1" id="field1" class="required" title="Enter your name" /></div>
+			</div>
+			<div class="form-row">
+				<div class="field-label"><label for="field3">Employee Number</label>:</div>
+				<div class="field-label"><input name="field3" id="field3" class="required validate-alphanum" title="Enter your employee number, please use only alphanumeric characters" /></div>
+			</div>
+			<div class="form-row">
+				<div class="field-label"><label for="field4">Age</label>:</div>
+				<div class="field-label"><input name="field4" id="field4" class="validate-number" title="Optional: Enter your age" /> (optional)</div>
+			</div>
+			<div class="form-row">
+				<div class="field-label"><label for="field5">Donation</label>:</div>
+				<div class="field-label">
+						<div id="advice-validate-currency-dollar-field5" class="custom-advice" style="display:none">That $ amount does not compute!</div>
+						<input name="field5" id="field5" class="validate-currency-dollar" title="Enter a dollar amount for donation" /> (optional)
+				</div>
+			</div>
+			<p><a href="#" onclick="$('email-signup').toggle(); return false">Sign me up for the email newletter!</a></p>
+			<div id="email-signup" class="form-row" style="display:none;">
+				<div class="field-label"><label for="field22">Email</label>:</div>
+				<div class="field-widget"><input name="field22" id="field22" class="required validate-email" title="Optional: Enter your email address" /></div>
+			</div>
+		</fieldset>
+		<input type="submit" value="Submit" /> <input type="button" value="Reset" onclick="valid.reset(); return false" />
+		</form>
+		<script type="text/javascript">
+			var valid = new Validation('test', {useTitles:true});
+		</script>
+</div>
+	</body>
+</html>
