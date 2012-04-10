@@ -5,23 +5,27 @@ Here's a form validation script that is very easy to use.
 The basic method is to attach to the form's onsubmit event, read out all the form elements' classes and perform validation if required. If a field fails validation, reveal field validation advice and prevent the form from submitting.
 
 Include the javascript libraries:
+
 ```html
 <script src="prototype.js" type="text/javascript"></script>
 <script src="validation.js" type="text/javascript"></script>
 ```
+
 You write elements like this:
+
 ```html
 <input class="required validate-number" id="field1" name="field1" />
 ```
 passing the validation requirements in the class attribute.
 
 You then activate validation by passing the form or form's id attribute like this:
+
 ```html
 <script type="text/javascript">
   new Validation('form-id'); // OR new Validation(document.forms[0]);
 </script>
 ```
-It has a number of tests built-in but is extensible to include your custom validation checks.
+It has a number of tests built-in, but is extensible to include your custom validation checks.
 
 The validator also avoids validating fields that are hidden or children of elements hidden by the CSS property display:none. This way you can give a field the class of 'required' but it's only validated if it is visible on the form. The demo illustrates what I am talking about
 
