@@ -154,7 +154,7 @@ Object.extend(Validation, {
 						advice = Validation.getAdvice(name, elm);
 					}
 					if(typeof Effect == 'undefined') {
-						advice.style.display = 'block';
+						advice.show();
 					} else {
 						new Effect.Appear(advice, {duration : 1 });
 					}
