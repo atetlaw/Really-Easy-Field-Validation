@@ -253,7 +253,7 @@ Validation.addAllThese([
 							(parseInt(RegExp.$1, 10) == d.getDate()) && 
 							(parseInt(RegExp.$3, 10) == d.getFullYear() );
 			}],
-	['validate-email', 'Please enter a valid email address. For example fred@domain.com .', function (v) {
+	['validate-email', 'Please enter a valid email address. For example fred@domain.com.', function (v) {
 				return Validation.get('IsEmpty').test(v) || /\w{1,}[@][\w\-]{1,}([.]([\w\-]{1,})){1,3}$/.test(v)
 			}],
 	['validate-url', 'Please enter a valid URL.', function (v) {
