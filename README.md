@@ -1,6 +1,6 @@
 Here's a form validation script that is very easy to use.
 
-##Instructions
+## Instructions
 
 The basic method is to attach to the form's onsubmit event, read out all the form elements' classes and perform validation if required. If a field fails validation, reveal field validation advice and prevent the form from submitting.
 
@@ -29,7 +29,7 @@ It has a number of tests built-in, but is extensible to include your custom vali
 
 The validator also avoids validating fields that are hidden or children of elements hidden by the CSS property display:none. This way you can give a field the class of `required` but it's only validated if it is visible on the form. The demo illustrates what I am talking about
 
-##Options
+## Options
 
 Here's the list of classes available to add to your field elements:
 
@@ -75,7 +75,7 @@ Also if you reference the effects.js file from Scriptaculous in your page head, 
 <script src="effects.js" type="text/javascript"></script>
 ```
 
-##CSS Hooks
+## CSS Hooks
 
 As well as the validation css classes above, the validation library uses `validation-failed` and `validation-passed` CSS classes to indicate validation status.
 
@@ -87,7 +87,7 @@ The validation advice element has a class of `validation-advice` and an `id` mat
 
 so if the field 'birthdate' uses the `validate-date` validation class then the validation advice element will have an `id` of `'advice-validate-date-birthdate'`.
 
-##Javascript API
+## Javascript API
 
 By default the class attaches an event observer to the form's onsubmit event. If you prefer to do the form submit via javascript yourself you can still validate the form like this:
 
